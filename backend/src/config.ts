@@ -9,6 +9,9 @@ export function configLoader(configPath: string): () => Record<string, any> {
     console.log(`Loaded config: ${JSON.stringify(config)}`);
     config.port = config.port ?? 3000;
     config.host = config.host ?? 'localhost';
-    return config;
+    return {
+      ...config,
+      ...process.env,
+    };
   };
 }
