@@ -10,6 +10,6 @@ export class Comment extends Content {
   @OneToMany(() => Comment, (comment: Comment) => comment.parentComment)
   replies: Comment[];
 
-  @ManyToOne(() => User, (user: User) => user.comments)
+  @ManyToOne(() => User, (user: User) => user.comments, { nullable: false })
   author: User;
 }

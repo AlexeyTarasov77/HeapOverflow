@@ -8,16 +8,17 @@ export class Question extends Content {
   @Column({ unique: true })
   title: string;
 
-  @ManyToOne(() => User, (user: User) => user.questions)
+  @ManyToOne(() => User, (user: User) => user.questions, { nullable: false })
   author: User;
 
   @Column('text', { array: true })
   tags: string[];
 
-  // eslint-disable-next-line prettier/prettier
-  @OneToMany(() => Answer, (answer: Answer) => answer.bestForQuestion, { nullable: true })
+  @OneToMany(() => Answer, (answer: Answer) => answer.bestForQuestion)
   bestAnswer: Answer;
 
   @OneToMany(() => Answer, (answer: Answer) => answer.question)
   answers: Answer[];
+
+  answersCount: number;
 }

@@ -6,7 +6,9 @@ import { SavedAnswer } from './saved-answer.entity';
 
 @Entity()
 export class Answer extends Content {
-  @ManyToOne(() => Question, (question: Question) => question.answers)
+  @ManyToOne(() => Question, (question: Question) => question.answers, {
+    nullable: false,
+  })
   question: Question;
 
   @OneToMany(() => Question, (question: Question) => question.bestAnswer)
@@ -15,7 +17,7 @@ export class Answer extends Content {
   @Column()
   upvotes: number;
 
-  @ManyToOne(() => User, (user: User) => user.answers)
+  @ManyToOne(() => User, (user: User) => user.answers, { nullable: false })
   author: User;
 
   @OneToMany(() => SavedAnswer, (answer: SavedAnswer) => answer.answer)
