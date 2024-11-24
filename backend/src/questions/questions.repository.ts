@@ -43,7 +43,10 @@ export class TypeOrmQuestionsRepository implements IQuestionsRepository {
   private async buildQueryForFindAll(
     dto: FindAllQuestionsDto,
   ): Promise<SelectQueryBuilder<Question>> {
-    let queryBuilder = this.questionsRepo.createQueryBuilder('question');
+    let queryBuilder = this.questionsRepo
+      .createQueryBuilder('question')
+      .innerJoinAndSelect('question.author', 'author')
+      .loadRelationCountAndMap('question.answersCount', 'question.answers');
     switch (dto.sort) {
       case 'mostAnswers':
         queryBuilder = queryBuilder

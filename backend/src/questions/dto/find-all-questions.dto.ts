@@ -26,7 +26,9 @@ export class FindAllQuestionsDto {
   @IsOptional()
   readonly pageSize: number = 10;
 
-  @Transform(({ value }) => value.split(','))
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.split(',') : value,
+  )
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
