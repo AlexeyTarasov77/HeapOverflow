@@ -5,3 +5,5 @@ export const sidebarLinks = [
     { name: "Home", href: "/", iconURL: homeIcon },
     { name: "Questions", href: "/questions", iconURL: questionsIcon },
 ]
+
+export const serverUrl = "http://localhost:3000"

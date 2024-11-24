@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Sidebar({
   links,
 }: {
@@ -7,10 +9,10 @@ export function Sidebar({
     <aside className="w-1/5 flex-none bg-blue-200 p-4">
       <h3 className="font-bold text-2xl">HeapOverflow</h3>
       {links.map((link, i) => (
-        <a key={i} href={link.href} className="flex items-center gap-2 py-2">
+        <Link key={i} to={link.href} className="flex items-center gap-2 py-2">
           <img src={link.iconURL} className="w-6 h-6" alt={link.name} />
           {link.name}
-        </a>
+        </Link>
       ))}
     </aside>
   );
