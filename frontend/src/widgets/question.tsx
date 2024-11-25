@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { IQuestion } from "../interfaces";
 import { formatDate } from "../utils";
-import { Badge } from "./badge";
+import { Badge } from "./";
 
 export function Question({ questionData }: { questionData: IQuestion }) {
   return (

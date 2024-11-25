@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button } from "../components/button";
 import { KeyboardEvent } from "react";
-import { serverUrl } from "../constants";
-import { Question } from "../components/question";
-import { IQuestion } from "../interfaces";
+import { SERVER_URL } from "../../app/constants";
+import { Question, Button } from "../../widgets";
+import { IQuestion } from "../../interfaces";
 
 export function QuestionsList() {
   const [questions, setQuestions] = useState([]);
@@ -22,7 +21,7 @@ export function QuestionsList() {
     if (queryParams.tags) {
       queryParams.tags.forEach(tag => params.append("tags", String(tag)));
     }
-    const url = new URL(`${serverUrl}/questions`);
+    const url = new URL(`${SERVER_URL}/questions`);
     url.search = params.toString();
     fetch(url)
       .then(resp => resp.json())

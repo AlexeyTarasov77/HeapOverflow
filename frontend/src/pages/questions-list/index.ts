@@ -1,0 +1,1 @@
+export { questionsListPageRoute } from "./questions-list.route";
