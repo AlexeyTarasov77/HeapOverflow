@@ -2,14 +2,19 @@ import { Link } from "react-router-dom";
 import { humanizeDate } from "../utils";
 import { Badge } from "./";
 import { IQuestion } from "../api/questions/questions-list";
+import { LikeButton } from "./like-button";
 
 export function Question({ questionData }: { questionData: IQuestion }) {
+  const likesStoringKey = "likedQuestionsIds";
   return (
     <div className="flex gap-3 p-5">
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-3">
         <Badge color="blue" size="xs">
           {questionData.answersCount} answers
         </Badge>
+        <div>
+          <LikeButton objID={questionData.id} storingKey={likesStoringKey} />
+        </div>
       </div>
       <div className="flex flex-col">
         <h3 className="text-xl text-blue-500 font-semibold">
