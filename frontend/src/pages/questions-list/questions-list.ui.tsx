@@ -1,32 +1,20 @@
 import { useEffect, useState } from "react";
 import { KeyboardEvent } from "react";
-import { SERVER_URL } from "../../app/constants";
 import { Question, Button } from "../../widgets";
-import { IQuestion } from "../../interfaces";
+import { fetchQuestionsList, IQuestion } from "../../api/questions/questions-list";
 
 export function QuestionsList() {
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [queryParams, setQueryParams] = useState<{
     sort?: string;
-    tags?: String[];
+    tags?: string[];
   }>({});
-  const [inputEnteredTags, setInputEnteredTags] = useState<String[]>([]);
+  const [inputEnteredTags, setInputEnteredTags] = useState<string[]>([]);
   const [tagsInputVal, setTagsInputVal] = useState<string>("");
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (queryParams.sort) {
-      params.append("sort", queryParams.sort);
-    }
-    if (queryParams.tags) {
-      queryParams.tags.forEach(tag => params.append("tags", String(tag)));
-    }
-    const url = new URL(`${SERVER_URL}/questions`);
-    url.search = params.toString();
-    fetch(url)
-      .then(resp => resp.json())
-      .then(data => setQuestions(data));
-    return () => setQuestions([]);
+    fetchQuestionsList(queryParams)
+        .then(questions => setQuestions(questions))
   }, [queryParams]);
 
   const tagsInputHandleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

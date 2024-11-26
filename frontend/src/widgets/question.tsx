@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { IQuestion } from "../interfaces";
-import { formatDate } from "../utils";
+import { humanizeDate } from "../utils";
 import { Badge } from "./";
+import { IQuestion } from "../api/questions/questions-list";
 
 export function Question({ questionData }: { questionData: IQuestion }) {
   return (
@@ -38,7 +38,7 @@ export function Question({ questionData }: { questionData: IQuestion }) {
               {questionData.author.username}
             </div>
             <div className="text-slate-500">
-              asked {formatDate(questionData.createdAt)}
+              asked {humanizeDate(questionData.createdAt)}
             </div>
           </div>
         </div>
