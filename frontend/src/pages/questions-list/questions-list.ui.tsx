@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { KeyboardEvent } from "react";
 import { Question, Button } from "../../widgets";
 import { fetchQuestionsList, IQuestion } from "../../api/questions/questions-list";
@@ -42,7 +42,7 @@ export function QuestionsList() {
     children,
     params
   }: {
-    children: string;
+    children: ReactNode;
     params: { [key: string]: string };
   }) {
     const handleOnClick = () => {
