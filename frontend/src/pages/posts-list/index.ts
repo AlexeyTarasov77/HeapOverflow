@@ -1,0 +1,1 @@
+export { postsListRoute } from "./posts-list.route";
