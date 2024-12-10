@@ -7,3 +7,7 @@ export const SIDEBAR_LINKS = [
 ];
 
 export const SERVER_URL = "http://localhost:3000";
+export const FOOTER_LINKS = [
+  { name: "Link 1", href: "/"},
+  { name: "Link 2", href: "/questions"}
+];

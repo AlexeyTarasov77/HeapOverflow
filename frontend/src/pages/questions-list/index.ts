@@ -1,1 +1,1 @@
-export { questionsListPageRoute } from "./questions-list.route";
+export { QuestionsListPage } from "./ui/QuestionsListPage";

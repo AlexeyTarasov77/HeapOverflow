@@ -1,24 +1,24 @@
 import { Link } from "react-router-dom";
-import { humanizeDate } from "../utils";
-import { Badge } from "./";
-import { IQuestion } from "../api/questions/questions-list";
+import { humanizeDate } from "../../../utils";
+import { Badge } from "../../../shared/ui";
+import { IQuestion } from "../../../shared/api/questions";
 
-export function Question({ questionData }: { questionData: IQuestion }) {
+export function QuestionPreview({ question }: { question: IQuestion }) {
   return (
     <div className="flex gap-3 p-5">
       <div className="flex flex-col">
         <Badge color="blue" size="xs">
-          {questionData.answersCount} answers
+          {question.answersCount} answers
         </Badge>
       </div>
       <div className="flex flex-col">
         <h3 className="text-xl text-blue-500 font-semibold">
-          <Link to={`/questions/${questionData.id}`}>{questionData.title}</Link>
+          <Link to={`/questions/${question.id}`}>{question.title}</Link>
         </h3>
-        <p className="text-slate-400 truncate">{questionData.body}</p>
+        <p className="text-slate-400 truncate">{question.body}</p>
         <div className="flex justify-between mt-3 items-center">
           <div className="flex gap-2">
-            {questionData.tags.map((tag, index) => (
+            {question.tags.map((tag, index) => (
               <Badge key={index}>{tag}</Badge>
             ))}
           </div>
@@ -26,8 +26,8 @@ export function Question({ questionData }: { questionData: IQuestion }) {
             <div>
               <img
                 src={
-                  questionData.author.imageUrl ||
-                  `https://robohash.org/${questionData.id}.png?size=50x50`
+                  question.author.imageUrl ||
+                  `https://robohash.org/${question.id}.png?size=50x50`
                 }
                 alt=""
                 width={50}
@@ -35,10 +35,10 @@ export function Question({ questionData }: { questionData: IQuestion }) {
               />
             </div>
             <div className="text-sm text-blue-600">
-              {questionData.author.username}
+              {question.author.username}
             </div>
             <div className="text-slate-500">
-              asked {humanizeDate(questionData.createdAt)}
+              asked {humanizeDate(question.createdAt)}
             </div>
           </div>
         </div>
