@@ -1,6 +1,5 @@
 import { LayoutPage } from "../pages/layout";
 import { MainPage } from "../pages/main";
-import { PostsListPage } from "../pages/posts-list";
 import { QuestionsListPage } from "../pages/questions-list";
 
 export const routes = [
@@ -17,8 +16,4 @@ export const routes = [
       },
     ],
   },
-  {
-    path: "/posts",
-    element: <PostsListPage />
-  }
 ];
