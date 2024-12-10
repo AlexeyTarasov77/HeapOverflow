@@ -1,5 +1,5 @@
 import { Form } from "react-router-dom";
-import { Input } from "../../widgets/input";
+import { Input } from "../../shared/ui/input";
 import { useState } from "react";
 
 function CreateQuestionForm() {

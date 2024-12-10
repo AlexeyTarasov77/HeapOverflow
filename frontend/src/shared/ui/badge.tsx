@@ -23,6 +23,7 @@ export function Badge({
       gray: "bg-gray-100 text-gray-600",
       blue: "bg-blue-100 text-blue-600"
     }[color],
+    onClick && "hover:cursor-pointer",
     "transition-colors rounded-md py-1 font-semibold"
   );
   return (

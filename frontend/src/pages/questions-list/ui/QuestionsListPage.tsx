@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useState } from "react";
-import { KeyboardEvent } from "react";
 import { Button } from "../../../shared/ui";
 import { IQuestion } from "../../../shared/api/questions";
 import { QuestionPreview } from "./QuestionPreview";
 import { fetchQuestionsList } from "../api/main";
+import { TagInput } from "./TagInput";
 
 export function QuestionsListPage() {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -11,34 +11,10 @@ export function QuestionsListPage() {
     sort?: string;
     tags?: string[];
   }>({});
-  const [inputEnteredTags, setInputEnteredTags] = useState<string[]>([]);
-  const [tagsInputVal, setTagsInputVal] = useState<string>("");
 
   useEffect(() => {
-    fetchQuestionsList(queryParams)
-        .then(questions => setQuestions(questions))
+    fetchQuestionsList(queryParams).then(questions => setQuestions(questions));
   }, [queryParams]);
-
-  const tagsInputHandleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    switch (e.key) {
-      case " ":
-        if (tagsInputVal.trim() !== "") {
-          setInputEnteredTags([...inputEnteredTags, tagsInputVal.trim()]);
-          setTagsInputVal("");
-        }
-        break;
-      case "Enter":
-        if (inputEnteredTags.length) {
-          setQueryParams({ tags: inputEnteredTags });
-          setInputEnteredTags([]);
-          setTagsInputVal("");
-        }
-    }
-  };
-
-  const removeTag = (index: number) => {
-    setInputEnteredTags(inputEnteredTags.filter((_, i) => i !== index));
-  };
 
   function FilterButton({
     children,
@@ -77,41 +53,24 @@ export function QuestionsListPage() {
           <FilterButton params={{}}>Unanswered</FilterButton>
         </div>
         <div>
-          <div className="flex flex-wrap items-center gap-2 p-1 border border-gray-300 rounded max-w-xs">
-            {inputEnteredTags.map((tag, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-1 px-2 py-1 bg-slate-100 rounded"
-              >
-                <span>{tag}</span>
-                <button
-                  onClick={() => removeTag(index)}
-                  className="text-slate-500 transition-colors hover:text-red-600 focus:outline-none"
-                >
-                  &times;
-                </button>
-              </div>
-            ))}
-            <input
-              type="text"
-              value={tagsInputVal}
-              onChange={e => setTagsInputVal(e.target.value)}
-              onKeyDown={tagsInputHandleKeyDown}
-              className="flex-grow outline-none px-2 py-1"
-              placeholder="Tags"
-            />
-          </div>
+          <TagInput onSubmit={tags => setQueryParams({ tags })} />
         </div>
       </div>
       <div className="border"></div>
       <div className="flex flex-col">
         {questions.map((question: IQuestion) => {
-            return (
-                <>
-                    <QuestionPreview key={question.id} question={question}/>
-                    <div className="border border-gray-400"></div>
-                </>
-            )
+          return (
+            <>
+              <QuestionPreview
+                key={question.id}
+                question={question}
+                tagOnClick={e =>
+                  setQueryParams({ tags: [e.currentTarget.innerText] })
+                }
+              />
+              <div className="border border-gray-400"></div>
+            </>
+          );
         })}
       </div>
     </div>

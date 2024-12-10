@@ -6,7 +6,7 @@ export const SIDEBAR_LINKS = [
   { name: "Questions", href: "/questions", iconURL: questionsIcon }
 ];
 
-export const SERVER_URL = "http://localhost:3000";
+export const SERVER_URL = "http://localhost:5050";
 export const FOOTER_LINKS = [
   { name: "Link 1", href: "/"},
   { name: "Link 2", href: "/questions"}

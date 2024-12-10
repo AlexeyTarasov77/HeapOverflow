@@ -3,7 +3,7 @@ import { humanizeDate } from "../../../utils";
 import { Badge } from "../../../shared/ui";
 import { IQuestion } from "../../../shared/api/questions";
 
-export function QuestionPreview({ question }: { question: IQuestion }) {
+export function QuestionPreview({ question, tagOnClick }: { question: IQuestion, tagOnClick?: React.MouseEventHandler<HTMLSpanElement> }) {
   return (
     <div className="flex gap-3 p-5">
       <div className="flex flex-col">
@@ -19,7 +19,7 @@ export function QuestionPreview({ question }: { question: IQuestion }) {
         <div className="flex justify-between mt-3 items-center">
           <div className="flex gap-2">
             {question.tags.map((tag, index) => (
-              <Badge key={index}>{tag}</Badge>
+              <Badge key={index} onClick={tagOnClick}>{tag}</Badge>
             ))}
           </div>
           <div className="flex gap-2 items-center">

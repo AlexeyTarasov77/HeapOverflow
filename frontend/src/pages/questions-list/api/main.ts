@@ -19,5 +19,8 @@ export async function fetchQuestionsList(queryParams: { sort?: string, tags?: st
             q.updatedAt = new Date(q.updatedAt)
         })
         return questions
+      }).catch((err) => {
+        console.error(err)
+        throw err;
       })
 }
