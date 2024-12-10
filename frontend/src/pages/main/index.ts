@@ -1,1 +1,1 @@
-export { mainPageRoute } from "./main.route";
+export { MainPage } from "./ui/MainPage";

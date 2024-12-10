@@ -1,14 +1,24 @@
-import { Layout } from "../pages/layout";
-import { mainPageRoute } from "../pages/main";
-import { postsListRoute } from "../pages/posts-list";
-import { questionsListPageRoute } from "../pages/questions-list";
-
-
+import { LayoutPage } from "../pages/layout";
+import { MainPage } from "../pages/main";
+import { PostsListPage } from "../pages/posts-list";
+import { QuestionsListPage } from "../pages/questions-list";
 
 export const routes = [
-    {
-      element: <Layout />,
-      children: [mainPageRoute, questionsListPageRoute]
-    },
-    postsListRoute
-  ]
+  {
+    element: <LayoutPage />,
+    children: [
+      {
+        path: "/",
+        element: <MainPage />
+      },
+      {
+        path: "/questions",
+        element: <QuestionsListPage />
+      },
+    ],
+  },
+  {
+    path: "/posts",
+    element: <PostsListPage />
+  }
+];

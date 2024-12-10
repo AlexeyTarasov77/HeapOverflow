@@ -1,4 +1,4 @@
-export function Main() {
+export function MainPage() {
     return (
         <div className="flex flex-col items-center mt-10 w-full">
             <h1 className="text-3xl">Welcome to HeapOverflow!</h1>

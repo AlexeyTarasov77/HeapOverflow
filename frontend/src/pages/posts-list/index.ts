@@ -1,1 +1,1 @@
-export { postsListRoute } from "./posts-list.route";
+export { PostsListPage } from "./ui/PostsListPage";

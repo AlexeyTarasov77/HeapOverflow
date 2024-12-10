@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { KeyboardEvent } from "react";
-import { Question, Button } from "../../widgets";
-import { fetchQuestionsList, IQuestion } from "../../api/questions/questions-list";
+import { Button } from "../../../shared/ui";
+import { IQuestion } from "../../../shared/api/questions";
+import { QuestionPreview } from "./QuestionPreview";
+import { fetchQuestionsList } from "../api/main";
 
-export function QuestionsList() {
+export function QuestionsListPage() {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [queryParams, setQueryParams] = useState<{
     sort?: string;
@@ -103,10 +105,10 @@ export function QuestionsList() {
       </div>
       <div className="border"></div>
       <div className="flex flex-col">
-        {questions.map((questionData: IQuestion) => {
+        {questions.map((question: IQuestion) => {
             return (
                 <>
-                    <Question key={questionData.id} questionData={questionData}/>
+                    <QuestionPreview key={question.id} question={question}/>
                     <div className="border border-gray-400"></div>
                 </>
             )
