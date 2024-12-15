@@ -4,11 +4,13 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Param,
   Post,
   Query,
 } from '@nestjs/common';
 import {
   QuestionAlreadyExistsError,
+  QuestionNotFoundError,
   QuestionsService,
 } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
@@ -43,5 +45,21 @@ export class QuestionsController {
   @Get()
   async findAll(@Query() dto: FindAllQuestionsDto) {
     return this.questionsService.findAll(dto);
+  }
+
+  @Get('/:id')
+  async getOne(@Param('id') id: string) {
+    const idNum = Number(id);
+    if (Number.isNaN(idNum) || idNum < 1) {
+      throw new HttpException(
+        `Invalid id param: ${id}. Id should be a valid interger and > 0`,
+        400,
+      );
+    }
+    return this.questionsService.getOne(idNum).catch((err) => {
+      if (err instanceof QuestionNotFoundError) {
+        throw new HttpException(err.message, 404);
+      }
+    });
   }
 }

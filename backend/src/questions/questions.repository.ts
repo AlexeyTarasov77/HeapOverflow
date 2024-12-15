@@ -73,4 +73,13 @@ export class TypeOrmQuestionsRepository implements IQuestionsRepository {
       .skip((dto.pageNum - 1) * dto.pageSize)
       .getMany();
   }
+
+  async getOne(id: number): Promise<Question | null> {
+    const queryBuilder = this.questionsRepo
+      .createQueryBuilder('question')
+      .innerJoinAndSelect('question.author', 'author')
+      .loadRelationCountAndMap('question.answersCount', 'question.answers')
+      .where('question.id = :id', { id });
+    return await queryBuilder.getOne();
+  }
 }

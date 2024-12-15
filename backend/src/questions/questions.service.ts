@@ -9,11 +9,14 @@ class QuestionsServiceError extends Error {}
 
 export class QuestionAlreadyExistsError extends QuestionsServiceError {}
 
+export class QuestionNotFoundError extends QuestionsServiceError {}
+
 export const IQuestionsRepositoryToken = Symbol('IQuestionsRepository');
 
 export interface IQuestionsRepository {
   insert(dto: CreateQuestionDto): Promise<Question>;
   findAll(dto: FindAllQuestionsDto): Promise<Question[]>;
+  getOne(id: number): Promise<Question | null>;
 }
 
 @Injectable()
@@ -36,5 +39,13 @@ export class QuestionsService {
 
   async findAll(dto: FindAllQuestionsDto): Promise<Question[]> {
     return this.questionsRepo.findAll(dto);
+  }
+
+  async getOne(id: number): Promise<Question> {
+    const question = await this.questionsRepo.getOne(id);
+    if (!question) {
+      throw new QuestionNotFoundError(`Question with id: ${id} not found`);
+    }
+    return question;
   }
 }
