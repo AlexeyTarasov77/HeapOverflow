@@ -1,17 +1,8 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { IQuestion } from "../../../shared/api/questions";
-import { fetchQuestion } from "../api/main";
 import { Badge } from "../../../shared/ui";
+import { useQuestionById } from "./use-question-by-id";
 
 export function QuestionPage() {
-    const [question, setQuestion] = useState<IQuestion | null>(null)
-    const [error, setError] = useState<string | null>(null)
-    const { id } = useParams()
-    useEffect(() => {
-        fetchQuestion(Number(id)).then(question => setQuestion(question))
-        .catch(err => setError(err.message)) 
-    }, [id])
+    const { question, error, isLoading } = useQuestionById();
     return (
        <>
            {question && (
@@ -31,6 +22,7 @@ export function QuestionPage() {
             </div>
            )}
            {error && <p className="text-red-500">{error}</p>}
+           {isLoading && <h3 className="text-3xl text-center mt-10">Loading...</h3>}
        </>
     )
 }
